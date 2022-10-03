@@ -3,13 +3,15 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <View>
-      <Text style={styles.text_input}>Home</Text>
+    <View style={styles.text_input}>
+      <Text>Home</Text>
     </View>
   );
 }
 const styles = StyleSheet.create({
   text_input: {
-    color: 'black',
+    backgroundColor: '#3273a8',
+    width: '100%',
+    height: '100%',
   },
 });
