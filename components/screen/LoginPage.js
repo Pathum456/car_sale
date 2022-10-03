@@ -30,6 +30,7 @@ export default function LoginPage({navigation}) {
         } else if (userName !== '' && password !== '') {
           console.log(response);
           Alert.alert('Login Successfully !');
+          navigation.navigate('Login');
         } else {
           if (userName === '') {
             Alert.alert('Please Fill Username..!');
@@ -46,12 +47,16 @@ export default function LoginPage({navigation}) {
   return (
     <NativeBaseProvider>
       <View style={styles.view_set}>
-        <Text fontSize="3xl" bold underline mt="10%" ml="30%">
-          Login Form
-        </Text>
-
-        <VStack space={3} alignItems="center" mt="15%">
+        <VStack space={1} alignItems="center">
+          <Text fontSize="3xl" bold underline mt="22%">
+            Login Form
+          </Text>
+        </VStack>
+        <VStack space={3} alignItems="center" mt="18%">
           <Input
+            shadow={1}
+            type="text"
+            variant="rounded"
             mx="3"
             value={userName}
             onChangeText={e => {
@@ -61,6 +66,9 @@ export default function LoginPage({navigation}) {
             w="80%"
           />
           <Input
+            shadow={1}
+            type="password"
+            variant="rounded"
             mx="3"
             value={password}
             onChangeText={e => {
@@ -70,10 +78,13 @@ export default function LoginPage({navigation}) {
             w="80%"
           />
           <Button
+            shadow={5}
             size="md"
             variant="subtle"
-            colorScheme="secondary"
-            onPress={checkData}>
+            bg="primary.300"
+            w={'32'}
+            onPress={checkData}
+            mt="3">
             Login
           </Button>
         </VStack>
@@ -83,7 +94,8 @@ export default function LoginPage({navigation}) {
 }
 const styles = StyleSheet.create({
   view_set: {
+    backgroundColor: '#F9E7FE',
     width: '100%',
-    height: 100,
+    height: 690,
   },
 });
