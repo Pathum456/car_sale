@@ -10,6 +10,8 @@ import {
   Heading,
   HStack,
   Image,
+  Center,
+  TextArea,
 } from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
 
@@ -21,6 +23,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 export default function AddCar() {
   //const [cameraPhoto, setCameraPhoto] = useState();
   const [galleryPhoto, setGalleryPhoto] = useState();
+  const [carDetails, setCarDetails] = useState();
 
   let options = {
     saveToPhotos: true,
@@ -44,15 +47,43 @@ export default function AddCar() {
   return (
     <NativeBaseProvider>
       <View style={styles.view_set}>
-        <VStack space={4} alignItems="center">
-          <Heading fontSize="3xl" textAlign="center" ml="5%" mt="5%">
+        <VStack space={5} alignItems="center">
+          <Heading fontSize="3xl" underline textAlign="center" ml="5%" mt="5%">
             Add Car Details
           </Heading>
-          <Image
-            size={300}
-            source={{uri: galleryPhoto}}
-            alt="Alternate Text"
-            mt="5%"
+
+          <Button
+            variant="subtle"
+            bg="primary.300"
+            shadow={5}
+            w="80"
+            h="90"
+            onPress={openGallery}>
+            <Center>Upload Image</Center>
+
+            <Image
+              shadow={5}
+              borderWidth="1"
+              borderColor="black"
+              w="80"
+              h="90"
+              source={{uri: galleryPhoto}}
+              alt="Alternate Text"
+              onPress={openGallery}
+            />
+          </Button>
+          <TextArea
+            shadow={1}
+            type="text"
+            variant="outline"
+            mx="3"
+            value={carDetails}
+            onChangeText={e => {
+              setCarDetails(e);
+            }}
+            placeholder="Car Details"
+            w="80%"
+            h="30%"
           />
           <Button
             size="md"
@@ -61,7 +92,7 @@ export default function AddCar() {
             w={'32'}
             shadow={5}
             onPress={openGallery}>
-            Upload Image
+            Save Car
           </Button>
         </VStack>
       </View>
