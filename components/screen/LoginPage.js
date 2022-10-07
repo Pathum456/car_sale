@@ -93,6 +93,7 @@ export default function LoginPage({navigation}) {
                   }}
                   placeholder="user name"
                   w="100%"
+                  fontSize={18}
                 />
               </Animatable.View>
               <Animatable.View
@@ -113,6 +114,7 @@ export default function LoginPage({navigation}) {
                   }}
                   placeholder="password"
                   w="100%"
+                  fontSize={18}
                 />
               </Animatable.View>
             </VStack>
