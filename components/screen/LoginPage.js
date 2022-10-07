@@ -6,8 +6,12 @@ import {
   VStack,
   Button,
   View,
+  Image,
 } from 'native-base';
 import {Alert, StyleSheet} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+
+const img = require('../assets/images/Car_Sale_App_Icon.png');
 
 export default function LoginPage({navigation}) {
   const [userName, setUserName] = useState('');
@@ -47,46 +51,119 @@ export default function LoginPage({navigation}) {
   return (
     <NativeBaseProvider>
       <View style={styles.view_set}>
-        <VStack space={1} alignItems="center">
-          <Text fontSize="3xl" bold underline mt="22%">
-            Login Form
-          </Text>
+        <VStack space={2}>
+          <Animatable.View
+            animation="pulse"
+            iterationCount={1}
+            direction="alternate"
+            easing="ease-in-sine"
+            duration={2000}>
+            <Image source={img} alt="" ml="15%" mt={2} />
+          </Animatable.View>
+          <Animatable.View
+            animation="zoomInDown"
+            iterationCount={1}
+            direction="alternate"
+            easing="ease-in-sine"
+            duration={1000}
+            delay={500}>
+            <Text fontSize="3xl" bold color="red.500" ml={5}>
+              Sign In
+            </Text>
+          </Animatable.View>
         </VStack>
-        <VStack space={3} alignItems="center" mt="18%">
-          <Input
-            shadow={1}
-            type="text"
-            variant="rounded"
-            mx="3"
-            value={userName}
-            onChangeText={e => {
-              setUserName(e);
-            }}
-            placeholder="user name"
-            w="80%"
-          />
-          <Input
-            shadow={1}
-            type="password"
-            variant="rounded"
-            mx="3"
-            value={password}
-            onChangeText={e => {
-              setPassword(e);
-            }}
-            placeholder="password"
-            w="80%"
-          />
-          <Button
-            shadow={5}
-            size="md"
-            variant="subtle"
-            bg="primary.300"
-            w={'32'}
-            onPress={checkData}
-            mt="3">
-            Login
-          </Button>
+        <VStack space={4} alignItems="center" mt={10}>
+          <View w="80%">
+            <VStack space={5} alignItems="center">
+              <Animatable.View
+                animation="zoomInDown"
+                iterationCount={1}
+                direction="alternate"
+                easing="ease-in-sine"
+                duration={1200}
+                delay={700}>
+                <Input
+                  shadow={1}
+                  type="text"
+                  variant="rounded"
+                  mx="3"
+                  value={userName}
+                  onChangeText={e => {
+                    setUserName(e);
+                  }}
+                  placeholder="user name"
+                  w="100%"
+                />
+              </Animatable.View>
+              <Animatable.View
+                animation="zoomInDown"
+                iterationCount={1}
+                direction="alternate"
+                easing="ease-in-sine"
+                duration={1400}
+                delay={900}>
+                <Input
+                  shadow={1}
+                  type="password"
+                  variant="rounded"
+                  mx="3"
+                  value={password}
+                  onChangeText={e => {
+                    setPassword(e);
+                  }}
+                  placeholder="password"
+                  w="100%"
+                />
+              </Animatable.View>
+            </VStack>
+          </View>
+          <Animatable.View
+            animation="zoomInDown"
+            iterationCount={1}
+            direction="alternate"
+            easing="ease-in-sine"
+            duration={1600}
+            delay={1100}>
+            <Button
+              shadow={5}
+              size="md"
+              variant="subtle"
+              borderRadius={30}
+              bg="red.500"
+              w={'32'}
+              onPress={checkData}
+              mt="3">
+              Login
+            </Button>
+          </Animatable.View>
+          <Animatable.View
+            animation="zoomInDown"
+            iterationCount={1}
+            direction="alternate"
+            easing="ease-in-sine"
+            duration={1800}
+            delay={1300}>
+            <Text bold>or</Text>
+          </Animatable.View>
+          <Animatable.View
+            animation="zoomInDown"
+            iterationCount={1}
+            direction="alternate"
+            easing="ease-in-sine"
+            duration={2000}
+            delay={1500}>
+            <Button
+              shadow={5}
+              size="md"
+              variant="subtle"
+              borderRadius={30}
+              bg="blue.500"
+              w={'32'}
+              onPress={checkData}
+              mt="3">
+              Create account
+            </Button>
+          </Animatable.View>
         </VStack>
       </View>
     </NativeBaseProvider>
