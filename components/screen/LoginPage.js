@@ -178,3 +178,22 @@ const styles = StyleSheet.create({
     height: 690,
   },
 });
+/*<Button
+            variant="subtle"
+            bg="primary.300"
+            shadow={5}
+            w="80"
+            h="90"
+            onPress={openGallery}>
+            <Center>Upload Image</Center>
+
+            <Image
+              shadow={5}
+              borderWidth="1"
+              borderColor="black"
+              w="80"
+              h="90"
+              source={{uri: galleryPhoto}}
+              alt="Alternate Text"
+            />
+          </Button>*/

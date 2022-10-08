@@ -14,6 +14,7 @@ import {
   TextArea,
 } from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
+import * as Animatable from 'react-native-animatable';
 
 //launchCamera(options, callback);
 
@@ -23,7 +24,9 @@ import {launchImageLibrary} from 'react-native-image-picker';
 export default function AddCar() {
   //const [cameraPhoto, setCameraPhoto] = useState();
   const [galleryPhoto, setGalleryPhoto] = useState();
-  const [carDetails, setCarDetails] = useState();
+  const [carBrand, setCarBrand] = useState();
+  const [carPrice, setCarPrices] = useState();
+  const [contactNo, setContactNo] = useState();
 
   let options = {
     saveToPhotos: true,
@@ -47,53 +50,113 @@ export default function AddCar() {
   return (
     <NativeBaseProvider>
       <View style={styles.view_set}>
-        <VStack space={5} alignItems="center">
-          <Heading fontSize="3xl" underline textAlign="center" ml="5%" mt="5%">
-            Add Car Details
-          </Heading>
-
-          <Button
-            variant="subtle"
-            bg="primary.300"
-            shadow={5}
-            w="80"
-            h="90"
-            onPress={openGallery}>
-            <Center>Upload Image</Center>
-
-            <Image
-              shadow={5}
-              borderWidth="1"
-              borderColor="black"
-              w="80"
-              h="90"
-              source={{uri: galleryPhoto}}
-              alt="Alternate Text"
-              onPress={openGallery}
-            />
-          </Button>
-          <TextArea
-            shadow={1}
-            type="text"
-            variant="outline"
-            mx="3"
-            value={carDetails}
-            onChangeText={e => {
-              setCarDetails(e);
-            }}
-            placeholder="Car Details"
-            w="80%"
-            h="30%"
+        <VStack space={2} alignItems="center">
+          <Image
+            source={{uri: galleryPhoto}}
+            alt=""
+            position="absolute"
+            borderColor="black"
+            w="100%"
+            h={278}
+            resizeMode="stretch"
           />
+        </VStack>
+
+        <VStack space={2} alignItems="center">
           <Button
-            size="md"
             variant="subtle"
-            bg="primary.300"
-            w={'32'}
+            bg="white"
             shadow={5}
+            size="lg"
+            w={100}
+            h={100}
+            mt={185}
+            zIndex={1000}
+            position="absolute"
+            borderRadius={100}
             onPress={openGallery}>
-            Save Car
+            <Animatable.View
+              animation="pulse"
+              iterationCount="infinite"
+              direction="alternate"
+              easing="ease-in-sine"
+              duration={2000}>
+              <Image
+                shadow={5}
+                w="60"
+                source={require('../assets/images/icons8-add-image-64.png')}
+                alt="Alternate Text"
+              />
+            </Animatable.View>
           </Button>
+          <View style={styles.container} mt={228}>
+            <VStack space={8} alignItems="center" mt={20}>
+              <Input
+                shadow={1}
+                type="text"
+                variant="rounded"
+                mx="3"
+                value={carBrand}
+                onChangeText={e => {
+                  setCarBrand(e);
+                }}
+                placeholder="Brand Name"
+                w="90%"
+                fontSize={18}
+                position="relative"
+              />
+              <Input
+                shadow={1}
+                type="text"
+                variant="rounded"
+                mx="3"
+                value={carPrice}
+                onChangeText={e => {
+                  setCarBrand(e);
+                }}
+                placeholder="Price"
+                w="90%"
+                fontSize={18}
+                position="relative"
+              />
+              <Input
+                shadow={1}
+                type="text"
+                variant="rounded"
+                mx="3"
+                value={contactNo}
+                onChangeText={e => {
+                  setCarBrand(e);
+                }}
+                placeholder="Contact "
+                w="90%"
+                fontSize={18}
+                position="relative"
+              />
+              <HStack space={60} my={5}>
+                <Button
+                  shadow={5}
+                  size="md"
+                  variant="subtle"
+                  borderRadius={30}
+                  bg="red.500"
+                  w={'32'}
+                  mt="3">
+                  cancel
+                </Button>
+                <Button
+                  shadow={5}
+                  size="md"
+                  variant="subtle"
+                  borderRadius={30}
+                  bg="primary.500"
+                  w={'32'}
+                  mt="3">
+                  Save
+                </Button>
+              </HStack>
+            </VStack>
+          </View>
         </VStack>
       </View>
     </NativeBaseProvider>
@@ -102,8 +165,15 @@ export default function AddCar() {
 
 const styles = StyleSheet.create({
   view_set: {
-    backgroundColor: '#F9E7FE',
+    backgroundColor: '#51ceed',
     width: '100%',
     height: 690,
+  },
+  container: {
+    backgroundColor: 'white',
+    width: '100%',
+    height: 450,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
 });
