@@ -19,43 +19,46 @@ export default function LoginPage({navigation}) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const saveData = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: userName,
-        body: password,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then(response => {
-        if (
-          fullName === '' &&
-          contactNo === '' &&
-          userName === '' &&
-          password === ''
-        ) {
-          Alert.alert('Please Fill All Fields..!');
-        } else if (userName !== '' && password !== '') {
-          console.log(response);
-          Alert.alert('Login Successfully !');
-        } else {
-          if (fullName === '') {
-            Alert.alert('Please Fill Full Name..!');
-          } else if (contactNo === '') {
-            Alert.alert('Please Fill Contact Number..!');
-          } else if (userName === '') {
-            Alert.alert('Please Fill Username..!');
-          } else if (password === '') {
-            Alert.alert('Please Fill Password..!');
-          }
-        }
+  const saveUser = async () => {
+    if (
+      fullName !== '' &&
+      contactNo !== '' &&
+      userName !== '' &&
+      password !== ''
+    ) {
+      fetch('http://192.168.8.104:4000/users', {
+        method: 'POST',
+        body: JSON.stringify({
+          fullName: fullName,
+          userName: userName,
+          contactNo: contactNo,
+          password: password,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
       })
-      .catch(_err => {
-        Alert.alert('Error occured !');
-      });
+        .then(response => response.json())
+        .then(json => {
+          if (json.status === '500') {
+            Alert.alert(json.message);
+            navigation.navigate('LoginPage');
+          } else {
+            Alert.alert(json.message);
+            clearTextFields();
+          }
+        })
+
+        .catch(err => Alert.alert(err.message));
+    } else {
+      Alert.alert('Please fill all the fields and try again.');
+    }
+  };
+  const clearTextFields = () => {
+    setFullName('');
+    setUserName('');
+    setPassword('');
+    setContactNo('');
   };
 
   return (
@@ -177,7 +180,7 @@ export default function LoginPage({navigation}) {
               w={'32'}
               borderRadius={30}
               shadow={5}
-              onPress={saveData}>
+              onPress={saveUser}>
               Register
             </Button>
           </Animatable.View>

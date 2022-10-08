@@ -17,37 +17,35 @@ export default function LoginPage({navigation}) {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const checkData = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: userName,
-        body: password,
-      }),
+  const checkUser = () => {
+    fetch(`http://192.168.8.104:4000/users/login/${userName}/${password}`, {
+      method: 'GET',
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        'content-type': 'application/json',
       },
     })
-      .then(response => {
-        if (userName === '' && password === '') {
-          Alert.alert('Please Fill All Fields..!');
-        } else if (userName !== '' && password !== '') {
-          console.log(response);
-          Alert.alert('Login Successfully !');
-          navigation.navigate('Login');
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        if (json.length === 0) {
+          Alert.alert('Username or password incorrect.Try again!');
         } else {
-          if (userName === '') {
-            Alert.alert('Please Fill Username..!');
-          } else if (password === '') {
-            Alert.alert('Please Fill Password..!');
-          }
+          clearTextFields();
+          Alert.alert('Login Successful.');
+          navigation.navigate('LoadAllCars', {
+            username: json[0].username,
+            fullname: json[0].fullName,
+          });
+          console.log(json[0].username);
+          console.log(json[0].fullName);
         }
       })
-      .catch(_err => {
-        Alert.alert('Error occured !');
-      });
+      .catch(err => Alert.alert(err.message));
   };
-
+  const clearTextFields = () => {
+    setUserName('');
+    setPassword('');
+  };
   return (
     <NativeBaseProvider>
       <View style={styles.view_set}>
@@ -133,7 +131,7 @@ export default function LoginPage({navigation}) {
               borderRadius={30}
               bg="red.500"
               w={'32'}
-              onPress={checkData}
+              onPress={checkUser}
               mt="3">
               Login
             </Button>
@@ -161,8 +159,10 @@ export default function LoginPage({navigation}) {
               borderRadius={30}
               bg="blue.500"
               w={'32'}
-              onPress={checkData}
-              mt="3">
+              mt="3"
+              onPress={() => {
+                navigation.navigate('RegisterFormPage');
+              }}>
               Create account
             </Button>
           </Animatable.View>

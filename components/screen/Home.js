@@ -11,7 +11,7 @@ import {
   Image,
 } from 'native-base';
 const img = require('../assets/images/Car_Sale_App_Icon.png');
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <NativeBaseProvider>
       <View style={styles.container}>
@@ -57,7 +57,10 @@ export default function Home() {
                 bg="primary.300"
                 borderRadius="30"
                 w={'32'}
-                shadow={5}>
+                shadow={5}
+                onPress={() => {
+                  navigation.navigate('LoginPage');
+                }}>
                 Get Start
               </Button>
             </View>

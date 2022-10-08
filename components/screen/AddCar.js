@@ -21,7 +21,7 @@ import * as Animatable from 'react-native-animatable';
 // You can also use as a promise without 'callback':
 //const result = await launchCamera(options);
 
-export default function AddCar() {
+export default function AddCar({navigation}) {
   //const [cameraPhoto, setCameraPhoto] = useState();
   const [galleryPhoto, setGalleryPhoto] = useState();
   const [carBrand, setCarBrand] = useState();
@@ -172,7 +172,10 @@ export default function AddCar() {
                     borderRadius={30}
                     bg="red.500"
                     w={'32'}
-                    mt="3">
+                    mt="3"
+                    onPress={() => {
+                      navigation.navigate('ViewCarDetailsPage');
+                    }}>
                     cancel
                   </Button>
                 </Animatable.View>
