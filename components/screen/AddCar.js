@@ -91,69 +91,109 @@ export default function AddCar() {
           </Button>
           <View style={styles.container} mt={228}>
             <VStack space={8} alignItems="center" mt={20}>
-              <Input
-                shadow={1}
-                type="text"
-                variant="rounded"
-                mx="3"
-                value={carBrand}
-                onChangeText={e => {
-                  setCarBrand(e);
-                }}
-                placeholder="Brand Name"
-                w="90%"
-                fontSize={18}
-                position="relative"
-              />
-              <Input
-                shadow={1}
-                type="text"
-                variant="rounded"
-                mx="3"
-                value={carPrice}
-                onChangeText={e => {
-                  setCarBrand(e);
-                }}
-                placeholder="Price"
-                w="90%"
-                fontSize={18}
-                position="relative"
-              />
-              <Input
-                shadow={1}
-                type="text"
-                variant="rounded"
-                mx="3"
-                value={contactNo}
-                onChangeText={e => {
-                  setCarBrand(e);
-                }}
-                placeholder="Contact "
-                w="90%"
-                fontSize={18}
-                position="relative"
-              />
+              <Animatable.View
+                animation="zoomInLeft"
+                iterationCount={1}
+                direction="alternate"
+                easing="ease-in-sine"
+                duration={1000}
+                delay={500}>
+                <Input
+                  shadow={1}
+                  type="text"
+                  variant="rounded"
+                  mx="3"
+                  value={carBrand}
+                  onChangeText={e => {
+                    setCarBrand(e);
+                  }}
+                  placeholder="Brand Name"
+                  w="90%"
+                  fontSize={18}
+                  position="relative"
+                />
+              </Animatable.View>
+              <Animatable.View
+                animation="zoomInLeft"
+                iterationCount={1}
+                direction="alternate"
+                easing="ease-in-sine"
+                duration={1500}
+                delay={1000}>
+                <Input
+                  shadow={1}
+                  type="text"
+                  variant="rounded"
+                  mx="3"
+                  value={carPrice}
+                  onChangeText={e => {
+                    setCarBrand(e);
+                  }}
+                  placeholder="Price"
+                  w="90%"
+                  fontSize={18}
+                  position="relative"
+                />
+              </Animatable.View>
+              <Animatable.View
+                animation="zoomInLeft"
+                iterationCount={1}
+                direction="alternate"
+                easing="ease-in-sine"
+                duration={2000}
+                delay={1500}>
+                <Input
+                  shadow={1}
+                  type="text"
+                  variant="rounded"
+                  mx="3"
+                  value={contactNo}
+                  onChangeText={e => {
+                    setCarBrand(e);
+                  }}
+                  placeholder="Contact "
+                  w="90%"
+                  fontSize={18}
+                  position="relative"
+                />
+              </Animatable.View>
               <HStack space={60} my={5}>
-                <Button
-                  shadow={5}
-                  size="md"
-                  variant="subtle"
-                  borderRadius={30}
-                  bg="red.500"
-                  w={'32'}
-                  mt="3">
-                  cancel
-                </Button>
-                <Button
-                  shadow={5}
-                  size="md"
-                  variant="subtle"
-                  borderRadius={30}
-                  bg="primary.500"
-                  w={'32'}
-                  mt="3">
-                  Save
-                </Button>
+                <Animatable.View
+                  animation="zoomInLeft"
+                  iterationCount={1}
+                  direction="alternate"
+                  easing="ease-in-sine"
+                  duration={2500}
+                  delay={2000}>
+                  <Button
+                    shadow={5}
+                    size="md"
+                    variant="subtle"
+                    borderRadius={30}
+                    bg="red.500"
+                    w={'32'}
+                    mt="3">
+                    cancel
+                  </Button>
+                </Animatable.View>
+                <Animatable.View
+                  animation="zoomInRight"
+                  iterationCount={1}
+                  direction="alternate"
+                  easing="ease-in-sine"
+                  duration={2500}
+                  delay={2000}>
+                  <Button
+                    shadow={5}
+                    size="md"
+                    variant="subtle"
+                    borderRadius={30}
+                    bg="primary.500"
+                    w={'32'}
+                    mt="3">
+                    Save
+                  </Button>
+                </Animatable.View>
               </HStack>
             </VStack>
           </View>
