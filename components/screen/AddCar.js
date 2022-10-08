@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, PermissionsAndroid} from 'react-native';
+import {StyleSheet, PermissionsAndroid} from 'react-native';
 import React, {useState} from 'react';
 import {
   NativeBaseProvider,
@@ -7,11 +7,9 @@ import {
   VStack,
   Button,
   View,
-  Heading,
+  Alert,
   HStack,
   Image,
-  Center,
-  TextArea,
 } from 'native-base';
 import {launchImageLibrary} from 'react-native-image-picker';
 import * as Animatable from 'react-native-animatable';

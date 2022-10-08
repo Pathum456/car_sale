@@ -3,7 +3,7 @@ const app = express();
 const port = 4000;
 
 const userController = require('./routes/User');
-//const carController = require('./routes/Car');
+const carController = require('./routes/Car');
 
 app.use(express.json());
 
