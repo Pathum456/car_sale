@@ -32,7 +32,7 @@ export default function LoginPage({navigation}) {
         } else {
           clearTextFields();
           Alert.alert('Login Successful.');
-          navigation.navigate('LoadAllCars', {
+          navigation.navigate('ViewCarDetailsPage', {
             username: json[0].username,
             fullname: json[0].fullName,
           });

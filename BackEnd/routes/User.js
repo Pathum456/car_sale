@@ -94,7 +94,7 @@ router.delete('/:username', (req, res) => {
 });*/
 
 router.get('/login/:username/:password', (req, res) => {
-  const userName = req.params.userName;
+  const userName = req.params.username;
   const password = req.params.password;
 
   var query = 'SELECT * FROM users WHERE username=? AND password=?';
