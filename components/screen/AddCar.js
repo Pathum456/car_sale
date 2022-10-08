@@ -127,7 +127,7 @@ export default function AddCar({navigation}) {
                   mx="3"
                   value={carPrice}
                   onChangeText={e => {
-                    setCarBrand(e);
+                    setCarPrices(e);
                   }}
                   placeholder="Price"
                   w="90%"
@@ -149,7 +149,7 @@ export default function AddCar({navigation}) {
                   mx="3"
                   value={contactNo}
                   onChangeText={e => {
-                    setCarBrand(e);
+                    setContactNo(e);
                   }}
                   placeholder="Contact "
                   w="90%"

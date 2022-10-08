@@ -4,38 +4,37 @@ const db = require('../configs/db.configs');
 const router = express.Router();
 
 const connection = mysql.createConnection(db.database);
-
 connection.connect(function (err) {
   if (err) {
     console.log(err);
   } else {
     console.log('Connected to the MySQL server');
     var userTableQuery =
-      'CREATE TABLE IF NOT EXISTS users (fullName VARCHAR(255), username VARCHAR(255), contact Varchar(20),password VARCHAR(255))';
+      'CREATE TABLE IF NOT EXISTS cars (brandname VARCHAR(255), price Varchar(20),contact VARCHAR(255) ,path varchar(1000))';
     connection.query(userTableQuery, function (err, result) {
       if (err) {
         throw err;
       }
       //console.log(result); //
       if (result.warningCount === 0) {
-        console.log('User table created!');
+        console.log('Car table created!');
       }
     });
   }
 });
 
-//save user
+//save car
 router.post('/', (req, res) => {
   console.log('Post Method In Express');
-  const fullName = req.body.fullName;
-  const username = req.body.userName;
-  const contact = req.body.contactNo;
-  const password = req.body.password;
+  const brandname = req.body.carBrand;
+  const price = req.body.carPrice;
+  const contactNo = req.body.contactNo;
+  const galleryPhoto = req.body.password;
 
   var query =
-    'INSERT INTO users (fullName, username,contact,password) VALUES (?, ?, ?, ?)';
+    'INSERT INTO cars (brandname, price,contact,contact,path) VALUES (?, ?, ?, ?)';
 
-  connection.query(query, [fullName, username, contact, password], err => {
+  connection.query(query, [brandname, price, contactNo, galleryPhoto], err => {
     if (err) {
       res.send({message: 'duplicate entry'});
     } else {
@@ -43,23 +42,9 @@ router.post('/', (req, res) => {
     }
   });
 });
-// get username and password
-router.get('/login/:username/:password', (req, res) => {
-  const userName = req.params.username;
-  const password = req.params.password;
-
-  var query = 'SELECT * FROM users WHERE username=? AND password=?';
-
-  connection.query(query, [userName, password], (err, row) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(row);
-    }
-  });
-});
-/*router.get('/', (req, res) => {
-  var query = 'SELECT * FROM users';
+// get all cars
+router.get('/', (req, res) => {
+  var query = 'SELECT * FROM cars';
   connection.query(query, (err, rows) => {
     if (err) {
       console.log(err);
@@ -68,16 +53,16 @@ router.get('/login/:username/:password', (req, res) => {
   });
 });
 
-
-
+//update car details
 router.put('/', (req, res) => {
-  const fullName = req.body.fullName;
-  const username = req.body.username;
-  const password = req.body.password;
+  const brandname = req.body.carBrand;
+  const price = req.body.carPrice;
+  //const contactNo = req.body.contactNo;
+  const galleryPhoto = req.body.password;
 
-  var query = 'UPDATE users SET fullName=?, password=? WHERE username=?';
+  var query = 'UPDATE cars SET brandname=?, price=? WHERE username=?';
 
-  connection.query(query, [fullName, password, username], (err, rows) => {
+  connection.query(query, [brandname, price, galleryPhoto], (err, rows) => {
     if (err) {
       console.log(err);
     }
@@ -91,7 +76,8 @@ router.put('/', (req, res) => {
   });
 });
 
-router.delete('/:username', (req, res) => {
+//delete car
+/*router.delete('/:username', (req, res) => {
   const id = req.params.id;
 
   var query = 'DELETE FROM users WHERE username=?';
@@ -108,7 +94,3 @@ router.delete('/:username', (req, res) => {
     }
   });
 });*/
-
-
-
-module.exports = router;
