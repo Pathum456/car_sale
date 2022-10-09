@@ -21,7 +21,7 @@ import * as Animatable from 'react-native-animatable';
 
 export default function AddCar({navigation}) {
   //const [cameraPhoto, setCameraPhoto] = useState();
-  const [galleryPhoto, setGalleryPhoto] = useState();
+  const [galleryPhoto, setGalleryPhoto] = useState('');
   const [carBrand, setCarBrand] = useState();
   const [carPrice, setCarPrices] = useState();
   const [contactNo, setContactNo] = useState();
@@ -42,8 +42,7 @@ export default function AddCar({navigation}) {
   };*/
   const openGallery = async () => {
     const result = await launchImageLibrary(options);
-    setGalleryPhoto(result.assets[0].uri);
-    console.log(result.assets[0]);
+    setGalleryPhoto(result.assets[0]);
   };
   const createFormData = (photo, body) => {
     const data = new FormData();
@@ -57,13 +56,9 @@ export default function AddCar({navigation}) {
           : photo.uri.replace('file://', ''),
     });
 
-    console.log(data.uri);
-
     Object.keys(body).forEach(key => {
       data.append(key, body[key]);
     });
-
-    console.log(data._parts);
 
     return data;
   };
@@ -71,24 +66,29 @@ export default function AddCar({navigation}) {
     fetch('http://192.168.8.104:4000/cars/save/', {
       method: 'POST',
       body: createFormData(galleryPhoto, {
+        vehicleNo: vehicleNo,
         carBrand: carBrand,
         carPrice: carPrice,
         contactNo: contactNo,
       }),
       headers: {
-        Accept: 'application/json',
+        Accept: 'apllication/json',
         'Content-type': 'multipart/form-data',
       },
     })
-      .then(response => {
-        response.json();
-      })
+      .then(response => response.json())
       .then(json => {
         // console.log('upload succes', response);
-        Alert.alert('Upload success!');
+        // Alert.alert('Upload success!');
+        console.log(' res Json ' + json.status);
+        if (json.status === '200') {
+          Alert.alert(json.message);
+          console.log('Status get');
+        } else {
+          Alert.alert(json.message);
+        }
       })
       .catch(error => {
-        console.log('upload error', error);
         Alert.alert('Upload failed!');
       });
   };
@@ -98,7 +98,7 @@ export default function AddCar({navigation}) {
       <View style={styles.view_set}>
         <VStack space={2} alignItems="center">
           <Image
-            source={{uri: galleryPhoto}}
+            source={{uri: galleryPhoto.uri}}
             alt=""
             position="absolute"
             borderColor="black"
@@ -137,7 +137,7 @@ export default function AddCar({navigation}) {
           </Button>
           <View style={styles.container} mt={228}>
             <VStack space={6} alignItems="center" mt={20}>
-            <Animatable.View
+              <Animatable.View
                 animation="zoomInLeft"
                 iterationCount={1}
                 direction="alternate"
@@ -260,7 +260,9 @@ export default function AddCar({navigation}) {
                     borderRadius={30}
                     bg="primary.500"
                     w={'32'}
-                    onPress={saveCar}>
+                    onPress={() => {
+                      saveCar();
+                    }}>
                     Save
                   </Button>
                 </Animatable.View>

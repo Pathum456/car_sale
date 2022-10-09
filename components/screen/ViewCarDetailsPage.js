@@ -1,5 +1,5 @@
 import {Alert, StyleSheet, Text, PermissionsAndroid} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {MD3Colors} from 'react-native-paper';
 import {
   NativeBaseProvider,
@@ -18,16 +18,20 @@ import * as Animatable from 'react-native-animatable';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default function ViewCarDetailsPage({navigation}) {
-  const data = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      fullName: 'Aafreen Khan',
-      timeStamp: '12:47 PM',
-      recentText: 'Good Day!',
-      avatarUrl:
-        'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    },
-  ];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://192.168.8.104:4000/cars/getcars', {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setData(json);
+      });
+  });
   return (
     <NativeBaseProvider>
       <View style={styles.view_set} shadow={5}>
@@ -40,21 +44,13 @@ export default function ViewCarDetailsPage({navigation}) {
             navigation.navigate('AddCar');
           }}>
           <Image
+            alt=""
             ml={1}
             source={require('../assets/images/icons8-add-car-48.png')}
           />
         </Button>
         <View>
           <VStack space={3} mt={2}>
-            {/* <FlatList
-              data={data}
-              renderItem={({item}) => {
-                <View style={styles.container} shadow={5}>
-                  <Text color="white">{item}</Text>
-                </View>;
-              }}
-            /> */}
-
             <FlatList
               data={data}
               renderItem={({item}) => (
@@ -64,10 +60,11 @@ export default function ViewCarDetailsPage({navigation}) {
                   }}>
                   <View style={styles.container} shadow={5} ml="7%" mt="7%">
                     <HStack space={3}>
-                      <VStack space={3} ml="3%" mt="10%">
-                        <Text style={styles.text_style}>{item.fullName}</Text>
-                        <Text style={styles.text_style}>{item.fullName}</Text>
-                        <Text style={styles.text_style}>{item.fullName}</Text>
+                      <VStack space={3} ml="3%" mt="5%">
+                        <Text style={styles.text_style}>{item.vehicleNo}</Text>
+                        <Text style={styles.text_style}>{item.brandname}</Text>
+                        <Text style={styles.text_style}>{item.price}</Text>
+                        <Text style={styles.text_style}>{item.contact}</Text>
                       </VStack>
                       <Image
                         alt=""

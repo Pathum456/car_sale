@@ -8,7 +8,13 @@ import RegisterFormPage from './components/screen/RegisterFormPage';
 import AddCar from './components/screen/AddCar';
 import ViewCarDetailsPage from './components/screen/ViewCarDetailsPage';
 import MannageCar from './components/screen/MannageCar';
+import {LogBox} from 'react-native';
 
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 const Stack = createStackNavigator();
 export default function App() {
   return (
