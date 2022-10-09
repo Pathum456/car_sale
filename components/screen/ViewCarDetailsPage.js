@@ -1,8 +1,8 @@
-import {Alert, StyleSheet, PermissionsAndroid} from 'react-native';
+import {Alert, StyleSheet, Text, PermissionsAndroid} from 'react-native';
 import React, {useState} from 'react';
+import {IconButton, MD3Colors} from 'react-native-paper';
 import {
   NativeBaseProvider,
-  Text,
   Input,
   VStack,
   Button,
@@ -12,32 +12,31 @@ import {
   Image,
   Center,
   TextArea,
+  FlatList,
 } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 
 export default function ViewCarDetailsPage({navigation}) {
+  const [data, setData] = useState(['Data']);
   return (
     <NativeBaseProvider>
       <View style={styles.view_set} shadow={5}>
         <View>
-          <HStack>
+          <VStack alignItems="center" space={3 + 3} mt={10}>
+            {/* <FlatList
+              data={data}
+              renderItem={({item}) => {
+                <View style={styles.container} shadow={5}>
+                  <Text color="white">{item}</Text>
+                </View>;
+              }}
+            /> */}
             <Button
               onPress={() => {
                 navigation.navigate('AddCar');
               }}>
-              Add
+              add
             </Button>
-          </HStack>
-          <VStack alignItems="center" space={3 + 3} mt={20}>
-            <View style={styles.container} mt={10} shadow={5}>
-              <Text color="white">View</Text>
-            </View>
-            <View style={styles.container}>
-              <Text color="white">View</Text>
-            </View>
-            <View style={styles.container}>
-              <Text color="white">View</Text>
-            </View>
           </VStack>
         </View>
       </View>

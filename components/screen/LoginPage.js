@@ -31,13 +31,7 @@ export default function LoginPage({navigation}) {
           Alert.alert('Username or password incorrect.Try again!');
         } else {
           clearTextFields();
-          Alert.alert('Login Successful.');
-          navigation.navigate('ViewCarDetailsPage', {
-            username: json[0].username,
-            fullname: json[0].fullName,
-          });
-          console.log(json[0].username);
-          console.log(json[0].fullName);
+          navigation.navigate('ViewCarDetailsPage');
         }
       })
       .catch(err => Alert.alert(err.message));

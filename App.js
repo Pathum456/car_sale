@@ -6,7 +6,6 @@ import Home from './components/screen/Home';
 import LoginPage from './components/screen/LoginPage';
 import RegisterFormPage from './components/screen/RegisterFormPage';
 import AddCar from './components/screen/AddCar';
-import NavigationBar from './components/screen/NavigationBar';
 import ViewCarDetailsPage from './components/screen/ViewCarDetailsPage';
 
 const Stack = createStackNavigator();

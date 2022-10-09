@@ -1,4 +1,4 @@
-import {StyleSheet, PermissionsAndroid} from 'react-native';
+import {StyleSheet, PermissionsAndroid, Platform} from 'react-native';
 import React, {useState} from 'react';
 import {
   NativeBaseProvider,
@@ -44,6 +44,53 @@ export default function AddCar({navigation}) {
     setGalleryPhoto(result.assets[0].uri);
     console.log(result.assets[0]);
   };
+  const createFormData = (photo, body) => {
+    const data = new FormData();
+
+    data.append('photo', {
+      name: photo.fileName,
+      type: photo.type,
+      uri:
+        Platform.OS === 'android'
+          ? photo.uri
+          : photo.uri.replace('file://', ''),
+    });
+
+    console.log(data.uri);
+
+    Object.keys(body).forEach(key => {
+      data.append(key, body[key]);
+    });
+
+    console.log(data._parts);
+
+    return data;
+  };
+  const saveCar = async () => {
+    fetch('http://192.168.8.104:4000/cars/save/', {
+      method: 'POST',
+      body: createFormData(galleryPhoto, {
+        carBrand: carBrand,
+        carPrice: carPrice,
+        contactNo: contactNo,
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'multipart/form-data',
+      },
+    })
+      .then(response => {
+        response.json();
+      })
+      .then(json => {
+        // console.log('upload succes', response);
+        Alert.alert('Upload success!');
+      })
+      .catch(error => {
+        console.log('upload error', error);
+        Alert.alert('Upload failed!');
+      });
+  };
 
   return (
     <NativeBaseProvider>
@@ -56,7 +103,7 @@ export default function AddCar({navigation}) {
             borderColor="black"
             w="100%"
             h={278}
-            resizeMode="stretch"
+            resizeMode="cover"
           />
         </VStack>
 
@@ -191,7 +238,8 @@ export default function AddCar({navigation}) {
                     borderRadius={30}
                     bg="primary.500"
                     w={'32'}
-                    mt="3">
+                    mt="3"
+                    onPress={saveCar}>
                     Save
                   </Button>
                 </Animatable.View>

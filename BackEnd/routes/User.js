@@ -9,7 +9,7 @@ connection.connect(function (err) {
   if (err) {
     console.log(err);
   } else {
-    console.log('Connected to the MySQL server');
+    console.log('User Connected to the MySQL server');
     var userTableQuery =
       'CREATE TABLE IF NOT EXISTS users (fullName VARCHAR(255), username VARCHAR(255), contact Varchar(20),password VARCHAR(255))';
     connection.query(userTableQuery, function (err, result) {

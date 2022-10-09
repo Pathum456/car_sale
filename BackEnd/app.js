@@ -8,8 +8,8 @@ const carController = require('./routes/Car');
 app.use(express.json());
 
 app.use('/users', userController);
-//app.use('/cars', carController);
+app.use('/cars', carController);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server listning on port localhost:${port}`);
 });

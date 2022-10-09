@@ -8,7 +8,7 @@ connection.connect(function (err) {
   if (err) {
     console.log(err);
   } else {
-    console.log('Connected to the MySQL server');
+    console.log('Car Connected to the MySQL server');
     var userTableQuery =
       'CREATE TABLE IF NOT EXISTS cars (brandname VARCHAR(255), price Varchar(20),contact VARCHAR(255) ,path varchar(1000))';
     connection.query(userTableQuery, function (err, result) {
@@ -24,7 +24,7 @@ connection.connect(function (err) {
 });
 
 //save car
-router.post('/', (req, res) => {
+router.post('/save', (req, res) => {
   console.log('Post Method In Express');
   const brandname = req.body.carBrand;
   const price = req.body.carPrice;
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
   });
 });
 // get all cars
-router.get('/', (req, res) => {
+router.get('/get', (req, res) => {
   var query = 'SELECT * FROM cars';
   connection.query(query, (err, rows) => {
     if (err) {
@@ -51,6 +51,7 @@ router.get('/', (req, res) => {
     }
     res.send(rows);
   });
+  console.log('get');
 });
 
 //update car details
