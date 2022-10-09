@@ -25,6 +25,7 @@ export default function MannageCar({navigation}) {
   const [carBrand, setCarBrand] = useState();
   const [carPrice, setCarPrices] = useState();
   const [contactNo, setContactNo] = useState();
+  const [vehicleNo, setVehicleNo] = useState();
 
   let options = {
     saveToPhotos: true,
@@ -136,7 +137,7 @@ export default function MannageCar({navigation}) {
             </Animatable.View>
           </Button>
           <View style={styles.container} mt={228}>
-            <VStack space={8} alignItems="center" mt={20}>
+            <VStack space={6} alignItems="center" mt={20}>
               <Animatable.View
                 animation="zoomInLeft"
                 iterationCount={1}
@@ -145,7 +146,28 @@ export default function MannageCar({navigation}) {
                 duration={1000}
                 delay={500}>
                 <Input
-                  editable="false"
+                  shadow={1}
+                  type="text"
+                  variant="rounded"
+                  mx="3"
+                  value={vehicleNo}
+                  onChangeText={e => {
+                    setVehicleNo(e);
+                  }}
+                  placeholder="Vehicle No"
+                  w="90%"
+                  fontSize={18}
+                  position="relative"
+                />
+              </Animatable.View>
+              <Animatable.View
+                animation="zoomInLeft"
+                iterationCount={1}
+                direction="alternate"
+                easing="ease-in-sine"
+                duration={1500}
+                delay={1000}>
+                <Input
                   shadow={1}
                   type="text"
                   variant="rounded"
@@ -165,8 +187,8 @@ export default function MannageCar({navigation}) {
                 iterationCount={1}
                 direction="alternate"
                 easing="ease-in-sine"
-                duration={1500}
-                delay={1000}>
+                duration={2000}
+                delay={1500}>
                 <Input
                   shadow={1}
                   type="text"
@@ -187,8 +209,8 @@ export default function MannageCar({navigation}) {
                 iterationCount={1}
                 direction="alternate"
                 easing="ease-in-sine"
-                duration={2000}
-                delay={1500}>
+                duration={2500}
+                delay={2000}>
                 <Input
                   shadow={1}
                   type="text"
@@ -210,8 +232,8 @@ export default function MannageCar({navigation}) {
                   iterationCount={1}
                   direction="alternate"
                   easing="ease-in-sine"
-                  duration={2500}
-                  delay={2000}>
+                  duration={3000}
+                  delay={2500}>
                   <Button
                     shadow={5}
                     size="md"
@@ -219,7 +241,6 @@ export default function MannageCar({navigation}) {
                     borderRadius={30}
                     bg="red.500"
                     w={'32'}
-                    mt="3"
                     onPress={() => {
                       navigation.navigate('ViewCarDetailsPage');
                     }}>
@@ -231,8 +252,8 @@ export default function MannageCar({navigation}) {
                   iterationCount={1}
                   direction="alternate"
                   easing="ease-in-sine"
-                  duration={2500}
-                  delay={2000}>
+                  duration={3000}
+                  delay={2500}>
                   <Button
                     shadow={5}
                     size="md"
@@ -240,7 +261,6 @@ export default function MannageCar({navigation}) {
                     borderRadius={30}
                     bg="primary.500"
                     w={'32'}
-                    mt="3"
                     onPress={saveCar}>
                     Update
                   </Button>

@@ -31,14 +31,21 @@ export default function ViewCarDetailsPage({navigation}) {
   return (
     <NativeBaseProvider>
       <View style={styles.view_set} shadow={5}>
+        <VStack alignItems={'center'} mt={5}>
+          <Text style={styles.title}>All Cars</Text>
+        </VStack>
+        <Button
+          style={styles.btn}
+          onPress={() => {
+            navigation.navigate('AddCar');
+          }}>
+          <Image
+            ml={1}
+            source={require('../assets/images/icons8-add-car-48.png')}
+          />
+        </Button>
         <View>
-          <Button
-            onPress={() => {
-              navigation.navigate('AddCar');
-            }}>
-            Add Car
-          </Button>
-          <VStack space={3 + 3} mt={2}>
+          <VStack space={3} mt={2}>
             {/* <FlatList
               data={data}
               renderItem={({item}) => {
@@ -55,7 +62,7 @@ export default function ViewCarDetailsPage({navigation}) {
                   onPress={() => {
                     navigation.navigate('MannageCar');
                   }}>
-                  <View style={styles.container} shadow={5} ml="7%">
+                  <View style={styles.container} shadow={5} ml="7%" mt="7%">
                     <HStack space={3}>
                       <VStack space={3} ml="3%" mt="10%">
                         <Text style={styles.text_style}>{item.fullName}</Text>
@@ -85,7 +92,7 @@ export default function ViewCarDetailsPage({navigation}) {
 
 const styles = StyleSheet.create({
   view_set: {
-    backgroundColor: 'white',
+    backgroundColor: '#4b524d',
     width: '100%',
     height: 690,
   },
@@ -100,5 +107,19 @@ const styles = StyleSheet.create({
   },
   text_style: {
     fontSize: 16,
+    color: 'black',
+  },
+  btn: {
+    position: 'absolute',
+    width: 60,
+    height: 50,
+    left: '80%',
+    top: '90%',
+    zIndex: 10000000000,
+  },
+  title: {
+    fontSize: 30,
+    color: 'red',
+    fontWeight: 'bold',
   },
 });
