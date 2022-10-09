@@ -23,9 +23,9 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        {/* <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="LoginPage" component={LoginPage} />
-        <Stack.Screen name="RegisterFormPage" component={RegisterFormPage} /> */}
+        <Stack.Screen name="RegisterFormPage" component={RegisterFormPage} />
         <Stack.Screen
           name="ViewCarDetailsPage"
           component={ViewCarDetailsPage}
