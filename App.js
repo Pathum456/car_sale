@@ -7,6 +7,7 @@ import LoginPage from './components/screen/LoginPage';
 import RegisterFormPage from './components/screen/RegisterFormPage';
 import AddCar from './components/screen/AddCar';
 import ViewCarDetailsPage from './components/screen/ViewCarDetailsPage';
+import MannageCar from './components/screen/MannageCar';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -16,14 +17,15 @@ export default function App() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Home" component={Home} />
+        {/* <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="LoginPage" component={LoginPage} />
-        <Stack.Screen name="RegisterFormPage" component={RegisterFormPage} />
+        <Stack.Screen name="RegisterFormPage" component={RegisterFormPage} /> */}
         <Stack.Screen
           name="ViewCarDetailsPage"
           component={ViewCarDetailsPage}
         />
         <Stack.Screen name="AddCar" component={AddCar} />
+        <Stack.Screen name="MannageCar" component={MannageCar} />
       </Stack.Navigator>
     </NavigationContainer>
   );
