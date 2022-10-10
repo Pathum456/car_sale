@@ -16,6 +16,7 @@ import {
 } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 export default function ViewCarDetailsPage({navigation}) {
   const [data, setData] = useState([]);
@@ -30,6 +31,7 @@ export default function ViewCarDetailsPage({navigation}) {
       .then(response => response.json())
       .then(json => {
         setData(json);
+
       });
   });
   return (
@@ -56,7 +58,7 @@ export default function ViewCarDetailsPage({navigation}) {
               renderItem={({item}) => (
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate('MannageCar');
+                    navigation.navigate('MannageCar', {item});
                   }}>
                   <View style={styles.container} shadow={5} ml="7%" mt="7%">
                     <HStack space={3}>
@@ -71,7 +73,7 @@ export default function ViewCarDetailsPage({navigation}) {
                         shadow={50}
                         ml={5}
                         style={styles.car}
-                        source={require('../assets/images/car-1.jpg')}
+                        source={require('../assets/uploads/rn_image_picker_lib_temp_6a1e710a-b57b-4b23-baa2-8fee35b7a29a.jpg')}
                         resizeMode="contain"
                       />
                     </HStack>

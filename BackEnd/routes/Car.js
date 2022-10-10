@@ -43,13 +43,13 @@ router.post('/save', upload.single('photo'), (req, res) => {
   const price = req.body.carPrice;
   const contactNo = req.body.contactNo;
   const galleryPhoto = req.file.originalname;
-
+  const path = '../assets/uploads/' + galleryPhoto;
   var query =
     'INSERT INTO cars (vehicleNo,brandname,price,contact,path) VALUES (?, ?, ?, ?,?)';
 
   connection.query(
     query,
-    [vehicleNo, brandname, price, contactNo, galleryPhoto],
+    [vehicleNo, brandname, price, contactNo, path],
     err => {
       if (err) {
         res.send({
@@ -77,48 +77,51 @@ router.get('/getcars', (req, res) => {
     }
     res.send(rows);
   });
-  console.log('get');
 });
 
 //update car details
-router.put('/', (req, res) => {
-  const brandname = req.body.carBrand;
+router.put('/update', (req, res) => {
+  //const brandname = req.body.carBrand;
   const price = req.body.carPrice;
-  //const contactNo = req.body.contactNo;
-  const galleryPhoto = req.body.password;
+  const contactNo = req.body.contactNo;
+  const vehicleNo = req.body.vehicleNo;
+  //const galleryPhoto = req.body.password;
+  //console.log(req);
 
-  var query = 'UPDATE cars SET brandname=?, price=? WHERE username=?';
+  var query = 'UPDATE cars SET price=?,contact=? WHERE vehicleNo=?';
 
-  connection.query(query, [brandname, price, galleryPhoto], (err, rows) => {
+  connection.query(query, [price, contactNo, vehicleNo], (err, rows) => {
     if (err) {
       console.log(err);
     }
 
-    if (rows.affectedRows > 0) {
-      res.send({message: 'user updated'});
-    } else {
+    if (err) {
       res.send({message: 'user not found'});
+    } else {
+      res.send({message: 'user updated'});
     }
     // res.send(rows)
   });
 });
 
 //delete car
-/*router.delete('/:username', (req, res) => {
-  const id = req.params.id;
+router.delete('/deleteCar/:vehicleNo', (req, res) => {
+  const carId = req.params.vehicleNo;
 
-  var query = 'DELETE FROM users WHERE username=?';
+  var query = 'DELETE FROM cars WHERE vehicleNo=? ';
 
-  connection.query(query, [username], (err, rows) => {
+  connection.query(query, [carId], err => {
     if (err) {
-      console.log(err);
-    }
-
-    if (rows.affectedRows > 0) {
-      res.send({message: 'user deleted'});
+      res.send({
+        status: '500',
+        message: 'Error occured.Try again!',
+      });
     } else {
-      res.send({message: 'user not found'});
+      res.send({
+        status: '200',
+        message: 'Car deleted successfully',
+      });
     }
   });
-});*/
+});
 module.exports = router;

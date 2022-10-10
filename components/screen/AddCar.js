@@ -1,13 +1,11 @@
-import {StyleSheet, PermissionsAndroid, Platform} from 'react-native';
+import {StyleSheet, Alert, Platform} from 'react-native';
 import React, {useState} from 'react';
 import {
   NativeBaseProvider,
-  Text,
   Input,
   VStack,
   Button,
   View,
-  Alert,
   HStack,
   Image,
 } from 'native-base';
@@ -83,6 +81,7 @@ export default function AddCar({navigation}) {
         console.log(' res Json ' + json.status);
         if (json.status === '200') {
           Alert.alert(json.message);
+          navigation.navigate('ViewCarDetailsPage');
           console.log('Status get');
         } else {
           Alert.alert(json.message);

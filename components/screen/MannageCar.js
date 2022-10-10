@@ -1,5 +1,5 @@
-import {StyleSheet, PermissionsAndroid, Platform} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, PermissionsAndroid, Platform, Alert} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import {
   NativeBaseProvider,
   Text,
@@ -7,7 +7,6 @@ import {
   VStack,
   Button,
   View,
-  Alert,
   HStack,
   Image,
 } from 'native-base';
@@ -19,13 +18,13 @@ import * as Animatable from 'react-native-animatable';
 // You can also use as a promise without 'callback':
 //const result = await launchCamera(options);
 
-export default function MannageCar({navigation}) {
+export default function MannageCar({navigation, route}) {
   //const [cameraPhoto, setCameraPhoto] = useState();
   const [galleryPhoto, setGalleryPhoto] = useState();
-  const [carBrand, setCarBrand] = useState();
-  const [carPrice, setCarPrices] = useState();
-  const [contactNo, setContactNo] = useState();
-  const [vehicleNo, setVehicleNo] = useState();
+  const [carBrand, setCarBrand] = useState(route.params.item.brandname);
+  const [carPrice, setCarPrices] = useState(route.params.item.price);
+  const [contactNo, setContactNo] = useState(route.params.item.contact);
+  const [vehicleNo, setVehicleNo] = useState(route.params.item.vehicleNo);
 
   let options = {
     saveToPhotos: true,
@@ -45,39 +44,39 @@ export default function MannageCar({navigation}) {
     setGalleryPhoto(result.assets[0].uri);
     console.log(result.assets[0]);
   };
-  const createFormData = (photo, body) => {
-    const data = new FormData();
+  // const createFormData = (photo, body) => {
+  //   const data = new FormData();
 
-    data.append('photo', {
-      name: photo.fileName,
-      type: photo.type,
-      uri:
-        Platform.OS === 'android'
-          ? photo.uri
-          : photo.uri.replace('file://', ''),
-    });
+  //   data.append('photo', {
+  //     name: photo.fileName,
+  //     type: photo.type,
+  //     uri:
+  //       Platform.OS === 'android'
+  //         ? photo.uri
+  //         : photo.uri.replace('file://', ''),
+  //   });
 
-    console.log(data.uri);
+  //   console.log(data.uri);
 
-    Object.keys(body).forEach(key => {
-      data.append(key, body[key]);
-    });
+  //   Object.keys(body).forEach(key => {
+  //     data.append(key, body[key]);
+  //   });
 
-    console.log(data._parts);
+  //   console.log(data._parts);
 
-    return data;
-  };
-  const saveCar = async () => {
-    fetch('http://192.168.8.104:4000/cars/save/', {
-      method: 'POST',
-      body: createFormData(galleryPhoto, {
-        carBrand: carBrand,
+  //   return data;
+  // };
+  const updateCar = async () => {
+    fetch('http://192.168.8.104:4000/cars/update', {
+      method: 'PUT',
+      body: JSON.stringify({
+        vehicleNo: vehicleNo,
         carPrice: carPrice,
         contactNo: contactNo,
       }),
+
       headers: {
-        Accept: 'application/json',
-        'Content-type': 'multipart/form-data',
+        'Content-type': 'application/json; charset=UTF-8',
       },
     })
       .then(response => {
@@ -93,7 +92,23 @@ export default function MannageCar({navigation}) {
         Alert.alert('Upload failed!');
       });
   };
-
+  const deleteCar = () => {
+    fetch(`http://192.168.8.104:4000/cars/deleteCar/${vehicleNo}`, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(json => {
+        if (json.status === '200') {
+          Alert.alert(json.message);
+          navigation.navigate('ViewCarDetailsPage');
+        } else {
+          Alert.alert(json.message);
+        }
+      })
+      .catch(_err => {
+        Alert.alert('Error occured,Please try again later.');
+      });
+  };
   return (
     <NativeBaseProvider>
       <View style={styles.view_set}>
@@ -241,9 +256,7 @@ export default function MannageCar({navigation}) {
                     borderRadius={30}
                     bg="red.500"
                     w={'32'}
-                    onPress={() => {
-                      navigation.navigate('ViewCarDetailsPage');
-                    }}>
+                    onPress={deleteCar}>
                     Delete
                   </Button>
                 </Animatable.View>
@@ -261,7 +274,7 @@ export default function MannageCar({navigation}) {
                     borderRadius={30}
                     bg="primary.500"
                     w={'32'}
-                    onPress={saveCar}>
+                    onPress={updateCar}>
                     Update
                   </Button>
                 </Animatable.View>
