@@ -55,7 +55,7 @@ export default function ViewCarDetailsPage({navigation}) {
                   }}>
                   <View style={styles.container} shadow={5} ml="7%" mt="7%">
                     <HStack space={3}>
-                      <VStack space={3} ml="3%" mt="5%">
+                      <VStack space={2} ml="3%" mt="3%">
                         <Text style={styles.text_style}>{item.vehicleNo}</Text>
                         <Text style={styles.text_style}>{item.brandname}</Text>
                         <Text style={styles.text_style}>{item.price}</Text>
