@@ -1,22 +1,16 @@
-import {Alert, StyleSheet, Text, PermissionsAndroid} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {MD3Colors} from 'react-native-paper';
 import {
   NativeBaseProvider,
   VStack,
   Button,
   View,
   Image,
-  IconButton,
   FlatList,
-  Box,
-  Avatar,
-  Spacer,
   HStack,
 } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Item} from 'react-native-paper/lib/typescript/components/List/List';
 
 export default function ViewCarDetailsPage({navigation}) {
   const [data, setData] = useState([]);
@@ -31,7 +25,6 @@ export default function ViewCarDetailsPage({navigation}) {
       .then(response => response.json())
       .then(json => {
         setData(json);
-
       });
   });
   return (
@@ -73,7 +66,7 @@ export default function ViewCarDetailsPage({navigation}) {
                         shadow={50}
                         ml={5}
                         style={styles.car}
-                        source={require('../assets/uploads/rn_image_picker_lib_temp_6a1e710a-b57b-4b23-baa2-8fee35b7a29a.jpg')}
+                        source={require('../assets/uploads/car-1.jpg')}
                         resizeMode="contain"
                       />
                     </HStack>
